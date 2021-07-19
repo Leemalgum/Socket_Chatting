@@ -1,0 +1,119 @@
+
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	height: 100%;
+}
+
+.wrapper {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.user-container {
+	background: #a9bdce;
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0.5rem;
+}
+.user-container label {
+	font-size: 14px;
+	margin-right: 1rem;
+}
+.user-container input {
+	border-radius: 3px;
+	border: none;
+	height: 100%;
+}
+.display-container {
+	flex: 12;
+	background: #b2c7d9;
+	overflow-y: scroll;
+}
+.input-container {
+	/* flex: 2; */
+	/* display: flex; */
+	/* flex-direction: column;  */
+	/* justify-content: stretch;  */
+	/* align-items: stretch; */
+}
+.input-container div.area1 {
+	/* flex: 1; */
+	/* display: flex;  */
+	/* justify-content: flex-start; */
+	/* align-items: center; */
+	/* padding: 0.3rem; */
+	/* width: 100%; */
+}
+.input-container div.area2 {
+	/* flex: 1; */
+	/* display: flex;  */
+	/* justify-content: flex-start; */
+	/* align-items: center; */
+	/* padding: 0.3rem; */
+	/* width: 100%; */
+}
+.chatting-input {
+	font-size: 12px;
+	height: 100%;
+	flex: 8;
+	border: none;
+}
+.send-button {
+	flex: 1;
+	background: #ffeb33;
+	border: none;
+	/* height: 100%; */
+	border-radius: 3px;
+}
+.chatting-list li {
+	width: 90%;
+	padding: 0.3rem;
+	display: flex; /*가로 정렬*/
+	justify-content: flex-start; /*외쪽부터 시작*/
+	align-items: flex-end; /*밑에 붙어서 정렬*/
+	margin-top: 0.5rem;
+}
+.profile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+}
+.profile .user {
+	font-size: 10px;
+	margin-bottom: 0.3rem;
+}
+.profile .image {  
+	border-radius: 50%;
+	object-fit: cover; /*이미지 크기가 크다면 현재 크기(50,50)에 맞추기*/
+	width: 50px;
+	height: 50px;
+}
+.message {
+	border-radius: 5px;
+	padding: 0.5rem;
+	font-size: 12px;
+	margin: 0 5px;
+	flex: 7;
+}
+.time {
+	font-size: 10px;
+	margin: 0 5px;
+}
+.sent {
+	flex-direction: row-reverse; /*li에 flex 속성을 주었기 때문에 사용 가능*/
+	float: right; /*li에 width 90%를 줬기때문에 임의로 오른쪽에 붙여줘야함*/
+}
+.sent .message {
+	background: #ffeb33;
+}
+.received .message {
+	background: #fff;
+}

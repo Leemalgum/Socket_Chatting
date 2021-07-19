@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+html {
+  display: grid;
+  min-height: 100%;
+}
+
+body {
+  display: grid;
+  background: linear-gradient(to bottom left, #79C7C5 40%, #F9FBFF 100%);
+  font-family: "Lato", sans-serif;
+}
+
+.container {
+  position: relative;
+  margin: 12% auto;
+  width: 620px;
+  height: 450px;
+}
+
+.focus {
+  background: #F9FBFF;
+  margin-left: 1px;
+}
+
+.wrapper {
+  position: absolute;
+  left: 35%;
+  height: 75%;
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(119, 119, 119, 0.5);
+}
+
+/* 상단바 */
+.user-container {
+  width: 100%;
+  height: 60px;
+  background: #F9FBFF;
+  border-radius: 10px 10px 0 0;
+}
+
+/* 상단바 이름 */
+.nickname {
+  position: absolute;
+  top: 22px;
+  text-transform: uppercase;
+  color: #777777;
+  font-size: 0.8em;
+  letter-spacing: 2px;
+  font-weight: 500;
+  left: 60px;
+}
+
+.display-container {
+  position: absolute;
+  background: #F9FBFF;
+  width: 100%;
+  opacity: 0.85;
+  top: 60px;
+  height: 80%;
+}
+
+/* 대화창 */
+.message {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 5px;
+  color: #F9FBFF;
+  font-size: 0.7em;
+  padding: 10px 10px 10px 12px;
+  border-radius: 20px;
+}
+
+.received {
+  width: 50%;
+  height: 100%;
+  padding: 20px;
+}
+.received .message {
+  background: #b2b2b2;
+}
+
+.lower {
+  margin-top: 45px;
+}
+
+.sent {
+  padding: 20px;
+  right: 0;
+  top: 15%;
+  width: 50%;
+  height: 100%;
+}
+.sent .message {
+  background: #79C7C5;
+  float: right;
+}
+
+/* 채팅바 */
+.input-container {
+  position: absolute;
+  width: 100%;
+  height: 55px;
+  bottom: 0;
+  background: #F9FBFF;
+  border-radius: 0 0 10px 10px;
+}
+
+.left {
+  left: 0px;
+}
+
+input {
+  padding: 7px;
+  width: 74%;
+  left: 5%;
+  position: absolute;
+  border: 0;
+  top: 13px;
+  background: #F9FBFF;
+  color: #79C7C5;
+}
+
+input::placeholder {
+  color: #A1E2D9;
+}
+
+input:focus {
+  color: #777777;
+  outline: 0;
+}
+
+button {
+  position: absolute;
+  border: 0;
+  font-size: 1em;
+  color: #A1E2D9;
+  top: 19px;
+  opacity: 0.8;
+  right: 17px;
+  cursor: pointer;
+  outline: 0;
+}
+button:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+  color: #79C7C5;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.7em;
+  padding: 10px;
+}
+footer p {
+  color: #79C7C5;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+footer a {
+  color: #F9FBFF;
+  text-decoration: none;
+}
+footer a:hover {
+  color: #A1E2D9;
+}
+
+@keyframes bounce {
+  30% {
+    transform: translateY(-2px);
+  }
+  60% {
+    transform: translateY(0px);
+  }
+  80% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+}
+
+/*# sourceMappingURL=style2.css.map */

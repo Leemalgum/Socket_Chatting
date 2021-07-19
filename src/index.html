@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTS-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Socket Chatting</title>
+	<link rel="stylesheet" href="style4.css">
+</head>
+<body>
+	<div class="container">
+		<div class="wrapper">
+			<div class="user-container">
+				<label for="nickname">이름</label>
+				<input type="text" id="nickname"/> 
+				<label>현재 접속자 수 :</label>
+				<label for="user"></label>
+			</div>
+			
+			<div class="display-container">
+				<ul class="chatting-list">
+				</ul>
+			</div>
+			
+			<div class="input-container">
+				<div class="area1">
+					<label for="received-nickname">받는 사람:&nbsp</label>
+					<select id="select-nickname">
+						<option value="all">모두</option>
+					</select>
+					<form action="/uploaded" enctype="multipart/form-data" method="post">
+						<input type="file" name="img">
+						<button type="submit" class="btn btn-primary">업로드</button>
+					</form>
+				</div>
+				<div class="area2">
+					<input type="text" class="chatting-input" onkeypress="if(event.keyCode==13){send_msg(this)}" placeholder="여기에 메시지 입력..."/>
+					<button class="send-button" onclick="send_msg(this)"; >전송</button>
+				</div>
+				<!-- <form class="area2"> -->
+					<!-- <input type="text" class="chatting-input" onkeypress="if(event.keyCode==13){send_msg(this)}"/> -->
+					<!-- <button type="button" class="send-button" onclick="send_msg(this)"; >전송</button> -->
+				<!-- </form> -->
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+	<script>
+		// <!-- 변수 -->
+		var socket = io();
+		const nickname = document.querySelector("#nickname");
+		const chatList = document.querySelector(".chatting-list");
+		const chatInput = document.querySelector(".chatting-input");
+		const sendButton = document.querySelector(".send-button");
+		const displayContainer = document.querySelector(".display-container");
+		
+		var today = new Date();   
+		var hours = ('0' + today.getHours()).slice(-2); 
+		var minutes = ('0' + today.getMinutes()).slice(-2);
+		var timeString = hours + ':' + minutes;
+		
+		// <!-- 현재 접속자 수 -->
+		socket.on("number_of_connectors", function(data){
+			$("label[for='user']").text(data);
+		});
+		
+		// <!-- socket.on("come_in", function(data){ -->
+		// 	<!-- &(".chatting-list").append( -->
+		// 		<!-- "<div class='come-in' str="+ data +"익명 님이 입장하였습니다.></div>" -->
+		// 	<!-- ); -->
+		// <!-- }); -->
+		
+		// <!-- 메시지 전송 -->
+		function send_msg(){
+			nickname.value == "" ? nickname.value="익명" : nickname.value&&user_register(nickname.value);
+			
+			var select = $("#select-nickname option:selected").val();
+			var param = {
+					name: nickname.value,
+					msg: chatInput.value,
+					time: timeString
+				}
+			
+			const item = new LiModel(param.name, param.msg, param.time);
+			item.makeLi1();
+			displayContainer.scrollTo(0, displayContainer.scrollHeight);
+			
+			if( select == "all"){
+				socket.emit("chatting", param);
+			}
+			else {
+				param.socketId = select;
+				socket.emit("send_select_user", param);
+			}
+			$(".chatting-input").val("");
+		}
+		
+		// <!-- 사용자 등록 -->
+		function user_register(data){
+			socket.emit("user_register", data);
+		}
+		
+		// <!-- 셀렉트 박스에 사용자 추가 -->
+		socket.on("new_user", function(data){
+			const option = data.nickname;
+			const value = data.socketId;
+			$("#select-nickname").append(new Option(option, value));
+		});
+		
+		// <!-- 서버에서 받은 메시지 출력  -->
+		socket.on("chatting", function(data){
+			const { name, msg, time } = data;
+			const item = new LiModel(name, msg, time);
+			item.makeLi2();
+			displayContainer.scrollTo(0, displayContainer.scrollHeight);
+		});
+		
+		// <!-- 화면에 메시지 보여주기 -->
+		function LiModel(name, msg, time){
+			this.name = name;
+			this.msg = msg;
+			this.time = time;
+			
+			this.makeLi1 = function(){
+				const li = document.createElement("li");
+				li.classList.add("sent")
+				const dom = `
+					<span class="profile">
+						<span class="user">${this.name}</span> 
+						<img class="image" src="https://placeimg.com/50/50/any" alt="any">
+					</span>
+					<span class="message">${this.msg}</span>
+					<span class="time">${this.time}</span>
+				`;
+				li.innerHTML = dom;
+				chatList.appendChild(li);
+			}
+			this.makeLi2 = function(){
+				const li = document.createElement("li");
+				li.classList.add("received")
+				const dom = `
+					<span class="profile">
+						<span class="user">${this.name}</span> 
+						<img class="image" src="https://placeimg.com/50/50/any" alt="any">
+					</span>
+					<span class="message">${this.msg}</span>
+					<span class="time">${this.time}</span>
+				`;
+				li.innerHTML = dom;
+				chatList.appendChild(li);
+			}
+			
+			
+		}
+		
+	</script>
+</body>
+</html>
