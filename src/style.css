@@ -36,27 +36,28 @@ html, body {
 	overflow-y: scroll;
 }
 .input-container {
-	/* flex: 2; */
-	/* display: flex; */
-	/* flex-direction: column;  */
-	/* justify-content: stretch;  */
-	/* align-items: stretch; */
+	flex: 2;
+	display: flex;
+	flex-direction: column; 
+	justify-content: stretch;
+	align-items: stretch;
+	overflow: hidden;
 }
 .input-container div.area1 {
-	/* flex: 1; */
-	/* display: flex;  */
-	/* justify-content: flex-start; */
-	/* align-items: center; */
-	/* padding: 0.3rem; */
-	/* width: 100%; */
+	flex: 1;
+	display: flex; 
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0.3rem;
+	width: 100%;
 }
 .input-container div.area2 {
-	/* flex: 1; */
-	/* display: flex;  */
-	/* justify-content: flex-start; */
-	/* align-items: center; */
-	/* padding: 0.3rem; */
-	/* width: 100%; */
+	flex: 1;
+	display: flex; 
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0.3rem;
+	width: 100%;
 }
 .chatting-input {
 	font-size: 12px;

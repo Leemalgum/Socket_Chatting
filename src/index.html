@@ -4,10 +4,10 @@
 	<meta charset="UTS-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Socket Chatting</title>
-	<link rel="stylesheet" href="style4.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container">
+	<!-- <div class="container"> -->
 		<div class="wrapper">
 			<div class="user-container">
 				<label for="nickname">이름</label>
@@ -15,7 +15,7 @@
 				<label>현재 접속자 수 :</label>
 				<label for="user"></label>
 			</div>
-			
+
 			<div class="display-container">
 				<ul class="chatting-list">
 				</ul>
@@ -27,10 +27,10 @@
 					<select id="select-nickname">
 						<option value="all">모두</option>
 					</select>
-					<form action="/uploaded" enctype="multipart/form-data" method="post">
+					<!-- <form action="/uploaded"  id="dynamic_form" enctype="multipart/form-data" method="post">
 						<input type="file" name="img">
 						<button type="submit" class="btn btn-primary">업로드</button>
-					</form>
+					</form> -->
 				</div>
 				<div class="area2">
 					<input type="text" class="chatting-input" onkeypress="if(event.keyCode==13){send_msg(this)}" placeholder="여기에 메시지 입력..."/>
@@ -41,7 +41,7 @@
 					<!-- <button type="button" class="send-button" onclick="send_msg(this)"; >전송</button> -->
 				<!-- </form> -->
 			</div>
-		</div>
+		<!-- </div> -->
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
@@ -154,6 +154,18 @@
 			
 			
 		}
+
+		$( "#dynamic_form" ).ajaxForm({
+			url: "/uploaded",
+			method: "post",
+			enctype: "multipart/form-data",
+			success: function ( data ){ 
+				var img = "<img src='http://localhost:8000/" + data.originalname +"'>";
+				$("#photo").html(img);
+			}
+		});
+
+		function upload_file(){ $( "#dynamic_form" ).submit();}
 		
 	</script>
 </body>
